@@ -4,6 +4,7 @@ plugins {
     id("org.graalvm.buildtools.native") version "0.10.2"
     kotlin("jvm") version "1.9.24"
     kotlin("plugin.spring") version "1.9.24"
+    id("org.flywaydb.flyway") version "10.0.0"
 }
 
 group = "net.panga"
@@ -33,6 +34,11 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+    implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-database-postgresql")
+    implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0")
+
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")

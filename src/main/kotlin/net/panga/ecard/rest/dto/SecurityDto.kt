@@ -1,4 +1,6 @@
-package net.panga.ecard.dto
+package net.panga.ecard.rest.dto
+
+import com.fasterxml.jackson.annotation.JsonInclude
 
 interface SecurityDto {
 
@@ -13,6 +15,7 @@ interface SecurityDto {
         val userDto: UserDto
     )
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     data class UserDto(
         val id: Long,
         val username: String,
@@ -23,8 +26,8 @@ interface SecurityDto {
     )
 
 
-    data class RegisterRequest(
-        val username: String,
+    data class RegistrationRequest(
+        val phoneNumber: String,
         val email: String,
         val password: String
     )
