@@ -2,8 +2,9 @@
 
 -- Create User table
 CREATE TABLE "user" (
-                        uuid UUID PRIMARY KEY,
-                        username VARCHAR(255) NOT NULL UNIQUE,
+                        id SERIAL PRIMARY KEY,
+                        uuid VARCHAR(36) NOT NULL UNIQUE,
+                        phone_number VARCHAR(255) NOT NULL UNIQUE,
                         email VARCHAR(255) NOT NULL UNIQUE,
                         password VARCHAR(255) NOT NULL,
                         firstname VARCHAR(255) NOT NULL,
@@ -11,26 +12,26 @@ CREATE TABLE "user" (
 );
 
 -- Create indexes for User table
-CREATE INDEX idx_user_username ON "user" (username);
-CREATE INDEX idx_user_email ON "user" (email);
 CREATE INDEX idx_user_lastname_firstname ON "user" (lastname, firstname);
 
 -- Create Wallet table
 CREATE TABLE wallet (
-                        uuid UUID PRIMARY KEY,
+                        id SERIAL PRIMARY KEY,
+                        uuid VARCHAR(36) NOT NULL UNIQUE,
                         balance NUMERIC(19, 4) NOT NULL,
-                        owner_uuid UUID NOT NULL,
+                        owner_id INT NOT NULL,
                         created_at TIMESTAMP NOT NULL,
-                        CONSTRAINT fk_wallet_user FOREIGN KEY (owner_uuid) REFERENCES "user" (uuid)
+                        CONSTRAINT fk_wallet_user FOREIGN KEY (owner_id) REFERENCES "user" (id)
 );
 
 -- Create indexes for Wallet table
-CREATE INDEX idx_wallet_owner_uuid ON wallet (owner_uuid);
+CREATE INDEX idx_wallet_owner_id ON wallet (owner_id);
 CREATE INDEX idx_wallet_created_at ON wallet (created_at);
 
 -- Create Ecard table
 CREATE TABLE ecard (
-                       uuid UUID PRIMARY KEY,
+                       id SERIAL PRIMARY KEY,
+                       uuid VARCHAR(36) NOT NULL UNIQUE,
                        issued_at TIMESTAMP NOT NULL,
                        valid_until TIMESTAMP NOT NULL,
                        balance NUMERIC(19, 4) NOT NULL

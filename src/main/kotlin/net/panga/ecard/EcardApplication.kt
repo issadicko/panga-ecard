@@ -8,4 +8,8 @@ class EcardApplication
 
 fun main(args: Array<String>) {
     runApplication<EcardApplication>(*args)
+
+    println()
+    println(">>>> Ecard Application Started <<<<")
+    println()
 }

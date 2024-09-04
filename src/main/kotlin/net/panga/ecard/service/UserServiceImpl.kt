@@ -16,7 +16,7 @@ class UserServiceImpl(
         TODO("Not yet implemented")
     }
 
-    override fun login(loginRequest: SecurityDto.LoginRequest): Mono<SecurityDto.LoginResponse> {
+    override fun login(loginRequest: SecurityDto.LoginRequest): Mono<SecurityDto.AuthenticationResponse> {
         TODO("Not yet implemented")
     }
 

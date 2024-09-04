@@ -2,10 +2,7 @@ package net.panga.ecard.rest
 
 import net.panga.ecard.rest.dto.SecurityDto
 import net.panga.ecard.service.contract.UserService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
@@ -25,12 +22,12 @@ class UserController(
 
 
     @GetMapping("/{uuid}")
-    fun getUserById(uuid: String): Mono<SecurityDto.UserDto> {
+    fun getUserById(@PathVariable uuid: String): Mono<SecurityDto.UserDto> {
         return userService.getUserById(uuid)
     }
 
     @GetMapping("/username/{username}")
-    fun getUserByUsername(username: String): Mono<SecurityDto.UserDto> {
+    fun getUserByUsername(@PathVariable username: String): Mono<SecurityDto.UserDto> {
         return userService.getUserByUsername(username)
     }
 
