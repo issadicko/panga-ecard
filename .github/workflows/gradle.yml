@@ -47,8 +47,7 @@ jobs:
         REMOTE_USER: ${{ secrets.REMOTE_USER }}
         TARGET: "/opt/panga-ecard/panga-ecard.jar"
         SCRIPT_AFTER: |
-          # systemctl restart panga-ecard.service
-          
+          systemctl restart panga-ecard.service
           whoami
           ls -al
           echo $RSYNC_STDOUT
