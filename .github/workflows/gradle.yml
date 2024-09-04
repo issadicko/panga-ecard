@@ -48,6 +48,7 @@ jobs:
         TARGET: "/opt/panga-ecard/panga-ecard.jar"
         SCRIPT_AFTER: |
           # systemctl restart panga-ecard.service
+          
           whoami
           ls -al
           echo $RSYNC_STDOUT
