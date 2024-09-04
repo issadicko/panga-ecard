@@ -3,6 +3,7 @@ package net.panga.ecard.rest
 import net.panga.ecard.dao.entity.User
 import net.panga.ecard.rest.dto.ResponseWrapper
 import net.panga.ecard.rest.dto.SecurityDto
+import net.panga.ecard.rest.dto.UserRegistrationDto
 import net.panga.ecard.security.ReactiveJwtService
 import net.panga.ecard.service.contract.UserService
 import org.springframework.http.HttpStatus
@@ -26,7 +27,7 @@ class PublicController(
 ) {
 
     @PostMapping("/register")
-    fun register(@RequestBody registrationRequest: SecurityDto.RegistrationRequest): Mono<ResponseWrapper<SecurityDto.UserDto>>{
+    fun register(@RequestBody registrationRequest: UserRegistrationDto): Mono<ResponseWrapper<SecurityDto.UserDto>>{
         return userService.register(registrationRequest)
                 .map {
                     ResponseWrapper(
@@ -53,7 +54,7 @@ class PublicController(
 
                         SecurityDto.AuthenticationResponse(
                             token = it,
-                            userDto = SecurityDto.UserDto.toDto(user)
+                            user = SecurityDto.UserDto.toDto(user)
                         )
 
                     }

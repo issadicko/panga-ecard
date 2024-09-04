@@ -2,6 +2,7 @@ package net.panga.ecard.rest.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import net.panga.ecard.dao.entity.User
+import java.util.*
 
 interface SecurityDto {
 
@@ -12,7 +13,7 @@ interface SecurityDto {
 
     data class AuthenticationResponse(
         val token: String,
-        val userDto: UserDto
+        val user: UserDto
     )
 
     data class LoginRequest(
@@ -40,13 +41,17 @@ interface SecurityDto {
                     lastname = user.lastname
                 )
             }
+
+            fun toEntity(registrationRequest: UserRegistrationDto): User {
+                return User(
+                    uuid        = UUID.randomUUID(),
+                    phoneNumber = registrationRequest.phone,
+                    email       = registrationRequest.email,
+                    password    = registrationRequest.password,
+                    firstname   = registrationRequest.firstName,
+                    lastname    = registrationRequest.lastName
+                )
+            }
         }
     }
-
-
-    data class RegistrationRequest(
-        val phoneNumber: String,
-        val email: String,
-        val password: String
-    )
 }
