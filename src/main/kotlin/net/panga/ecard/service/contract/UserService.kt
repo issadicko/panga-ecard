@@ -1,5 +1,6 @@
 package net.panga.ecard.service.contract
 
+import net.panga.ecard.dao.entity.User
 import net.panga.ecard.rest.dto.SecurityDto
 import net.panga.ecard.rest.dto.UserRegistrationDto
 import reactor.core.publisher.Flux
@@ -11,4 +12,5 @@ interface UserService {
     fun getUserById(uuid: String): Mono<SecurityDto.UserDto>
     fun getUserByUsername(username: String): Mono<SecurityDto.UserDto>
     fun getAllUsers(page: Int, size: Int): Flux<List<SecurityDto.UserDto>>
+    fun getConnectedUser(): Mono<User>
 }

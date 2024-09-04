@@ -2,6 +2,8 @@ package net.panga.ecard.rest
 
 import net.panga.ecard.rest.dto.SecurityDto
 import net.panga.ecard.service.contract.UserService
+import org.springframework.security.core.userdetails.User
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -31,4 +33,11 @@ class UserController(
         return userService.getUserByUsername(username)
     }
 
+    @GetMapping("/connected")
+    fun getConnectedUser(): Mono<SecurityDto.UserDto> {
+        return userService.getConnectedUser()
+            .map {
+                SecurityDto.UserDto.toDto(it)
+            }
+    }
 }

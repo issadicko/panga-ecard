@@ -53,9 +53,13 @@ class JwtAuthenticationFilter(
                     }
             }
             .flatMap { authentication ->
-                chain.filter(exchange)
-                    .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication))
+                Mono.fromCallable { ReactiveSecurityContextHolder.withAuthentication(authentication) }
+                    .flatMap { context ->
+                        chain.filter(exchange)
+                            .contextWrite(context)
+                    }
             }
+            .switchIfEmpty(this.sendUnauthorizedResponse(exchange))
     }
 
     private fun sendUnauthorizedResponse(exchange: ServerWebExchange): Mono<Void> {

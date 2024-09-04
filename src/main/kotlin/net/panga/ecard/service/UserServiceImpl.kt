@@ -1,10 +1,12 @@
 package net.panga.ecard.service
 
+import net.panga.ecard.dao.entity.User
 import net.panga.ecard.dao.repository.UserRepository
 import net.panga.ecard.rest.dto.SecurityDto
 import net.panga.ecard.rest.dto.UserRegistrationDto
 import net.panga.ecard.service.contract.UserService
 import net.panga.ecard.utils.exception.BusinessException
+import org.springframework.security.core.context.ReactiveSecurityContextHolder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
@@ -49,5 +51,10 @@ class UserServiceImpl(
         TODO("Not yet implemented")
     }
 
+   override  fun getConnectedUser(): Mono<User> {
+        return ReactiveSecurityContextHolder.getContext()
+                .map { it.authentication.principal }
+                .cast(User::class.java)
+    }
 
 }
